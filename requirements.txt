@@ -1,0 +1,5 @@
+gunicorn==20.0.4       # 必ず必要なので記載する
+matplotlib==3.7.2
+mediapipe==0.10.11
+numpy==1.24.3
+opencv-python==4.11.0.86
