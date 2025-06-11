@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>骨格診断アプリ｜画像で骨格診断</title>
+    <!-- CSSファイルの読み込み -->
+     <link rel=stylesheet href="../static/css/style.css">
+    <!-- ファビコンの設定 -->
+    <link rel="icon" href="../static/images/favicon.ico">
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <a href="/">骨格診断アプリ～MyFrame～
+            </a>
+        </div>
+        <h1>～MyFrame～</h1>
+    </header>
+
+    <main>
+        {% block content %}
+        <!-- 各ページ固有のコンテンツ -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <div class="footer_logo">©︎ 2025 骨格診断アプリ MyFrame</div>
+    </footer>
+</body>
+</html>

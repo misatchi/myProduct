@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+{% block title %}画像アップロード{% endblock %}
+{% block content %}
+<div class="upload-section">
+    <h2>写真を送信してください</h2>
+    <p>全身が写る正面写真をご用意ください！</p>
+    <img src="{{ url_for('static', filename='images/pose.jpg') }}" width="300" alt="ポーズ見本">
+
+    <form action="/upload" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept="image/*" required>
+        <button type="submit">診断する</button>
+    </form>
+</div>
+{% endblock %}
