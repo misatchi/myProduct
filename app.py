@@ -1,38 +1,29 @@
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for, flash
-import os
+import os, traceback
 from werkzeug.utils import secure_filename
 from feature_extractor import DetailedFeatureExtractor
 from similarity_calculator import SimilarityCalculator, RecommendationSystem
 from skeleton_classifier import SkeletonClassifier
+import cv2  # opencv-python-headless推奨
 import numpy as np
-import cv2
-from pathlib import Path
-import json
-from typing import Dict, List, Tuple
-from sklearn.metrics.pairwise import cosine_similarity
-import traceback # エラーの詳細表示用
 
-app = Flask(__name__)
-app.secret_key = 'your_super_secret_key_replace_me' # セッション用シークレットキーを設定してください
+app = Flask(__name__, static_folder='static', template_folder='templates')
+app.secret_key = os.environ.get('SECRET_KEY', 'replace_me_in_env')
 
-# アップロードされたファイルの保存先
+# 設定
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 FEATURES_DIR = 'data/features'
 AUGMENTED_IMAGES_DIR = 'data/augmented'
 
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max-limit
+for d in [UPLOAD_FOLDER, FEATURES_DIR, AUGMENTED_IMAGES_DIR]:
+    os.makedirs(d, exist_ok=True)
 
-# 必要なディレクトリの作成
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-os.makedirs(FEATURES_DIR, exist_ok=True)
-os.makedirs(AUGMENTED_IMAGES_DIR, exist_ok=True)
-for skeleton_type in ["straight", "wave", "natural"]:
-    os.makedirs(os.path.join(FEATURES_DIR, skeleton_type), exist_ok=True)
-    os.makedirs(os.path.join(AUGMENTED_IMAGES_DIR, skeleton_type), exist_ok=True)
+for skeleton in ["straight", "wave", "natural"]:
+    os.makedirs(os.path.join(FEATURES_DIR, skeleton), exist_ok=True)
+    os.makedirs(os.path.join(AUGMENTED_IMAGES_DIR, skeleton), exist_ok=True)
 
-# アプリケーションの初期化
+# 初期化
 feature_extractor = DetailedFeatureExtractor()
 classifier = SkeletonClassifier()
 recommendation_system = RecommendationSystem(
@@ -40,14 +31,12 @@ recommendation_system = RecommendationSystem(
     images_dir=AUGMENTED_IMAGES_DIR
 )
 
-# モデルの読み込み
+# モデルロード
 try:
     classifier.load_model("models/skeleton_classifier.joblib")
-except FileNotFoundError:
-    print("警告: モデルファイルが見つかりません。モデル学習を実行してください。")
-    # モデルが存在しない場合のフラグを設定するなど、適切にハンドリング
-    # 現在は分析時にエラーとする
-    pass
+except Exception:
+    app.logger.warning("モデル読み込みに失敗しました: models/skeleton_classifier.joblib が見つからないか読み込みに失敗しました。")
+
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
