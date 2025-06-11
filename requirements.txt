@@ -1,13 +1,94 @@
-numpy==1.26.4
-pandas==2.2.1
-scikit-learn==1.4.2
-opencv-python-headless==4.9.0.80
-mediapipe==0.10.9
-albumentations==1.3.1
-xgboost==2.0.3
-matplotlib==3.8.3
+absl-py==2.2.2
+albucore==0.0.17
+albumentations==1.4.18
+annotated-types==0.7.0
+attrs==25.3.0
+beautifulsoup4==4.13.4
+blinker==1.8.2
+certifi==2025.4.26
+cffi==1.17.1
+charset-normalizer==3.4.2
+click==8.1.8
+colorama==0.4.6
+coloredlogs==15.0.1
+contourpy @ file:///C:/b/abs_d5rpy288vc/croots/recipe/contourpy_1663827418189/work
+cycler @ file:///tmp/build/80754af9/cycler_1637851556182/work
+eval_type_backport==0.2.2
+filelock==3.16.1
+Flask==3.0.3
+flatbuffers==25.2.10
+fonttools @ file:///C:/b/abs_f47gnfqnx0/croot/fonttools_1713551644747/work
+gdown==5.2.0
+humanfriendly==10.0
+idna==3.10
+imageio==2.35.1
+imgviz==1.7.5
+importlib_metadata==8.5.0
+importlib_resources @ file:///C:/b/abs_e9f8_0_2dq/croot/importlib_resources-suite_1720641112288/work
+itsdangerous==2.2.0
+jax==0.4.13
+Jinja2==3.1.6
+joblib==1.4.2
+kiwisolver @ file:///C:/b/abs_88mdhvtahm/croot/kiwisolver_1672387921783/work
+labelme==5.6.0
+lazy_loader==0.4
+loguru==0.7.3
+MarkupSafe==2.1.5
+matplotlib @ file:///C:/b/abs_085jhivdha/croot/matplotlib-suite_1693812524572/work
+mediapipe==0.10.11
+mkl-fft @ file:///C:/b/abs_19i1y8ykas/croot/mkl_fft_1695058226480/work
+mkl-random @ file:///C:/b/abs_edwkj1_o69/croot/mkl_random_1695059866750/work
+mkl-service==2.4.0
+ml-dtypes==0.2.0
+mpmath==1.3.0
+natsort==8.4.0
+networkx==3.1
+numpy==1.24.4
+onnxruntime==1.19.2
+opencv-contrib-python==4.11.0.86
+opencv-python==4.11.0.86
+opencv-python-headless==4.11.0.86
+opt_einsum==3.4.0
+osam==0.2.2
+packaging @ file:///C:/b/abs_c3vlh0z4jw/croot/packaging_1720101866539/work
+pandas==2.0.3
+pillow @ file:///C:/b/abs_32o8er3uqp/croot/pillow_1721059447598/work
+ply==3.11
+protobuf==3.20.3
+pycparser==2.22
+pydantic==2.10.6
+pydantic_core==2.27.2
+pyparsing @ file:///C:/Users/BUILDE~1/AppData/Local/Temp/abs_7f_7lba6rl/croots/recipe/pyparsing_1661452540662/work
+PyQt5==5.15.10
+PyQt5-sip @ file:///C:/b/abs_c0pi2mimq3/croot/pyqt-split_1698769125270/work/pyqt_sip
+pyreadline3==3.5.4
+PySocks==1.7.1
+python-dateutil @ file:///C:/b/abs_3au_koqnbs/croot/python-dateutil_1716495777160/work
+pytz==2025.2
+PyWavelets==1.4.1
+PyYAML==6.0.2
+QtPy==2.4.3
+requests==2.32.3
+scikit-image==0.21.0
+scikit-learn==1.3.2
+scipy==1.10.1
 seaborn==0.13.2
-tqdm==4.66.2
-joblib==1.3.2
-Flask==2.2.5
-gunicorn==21.2.0 
+sip @ file:///C:/b/abs_edevan3fce/croot/sip_1698675983372/work
+six @ file:///tmp/build/80754af9/six_1644875935023/work
+sounddevice==0.5.1
+soupsieve==2.7
+sympy==1.13.3
+termcolor==2.4.0
+threadpoolctl==3.5.0
+tifffile==2023.7.10
+tomli @ file:///C:/Windows/TEMP/abs_ac109f85-a7b3-4b4d-bcfd-52622eceddf0hy332ojo/croots/recipe/tomli_1657175513137/work
+tornado @ file:///C:/b/abs_7bua0304mj/croot/tornado_1718740122405/work
+tqdm==4.67.1
+typing_extensions==4.13.2
+tzdata==2025.2
+unicodedata2 @ file:///C:/b/abs_b6apldlg7y/croot/unicodedata2_1713212998255/work
+urllib3==2.2.3
+Werkzeug==3.0.6
+win32_setctime==1.2.0
+xgboost==2.1.4
+zipp @ file:///C:/b/abs_021kqswk3k/croot/zipp_1729012371206/work
