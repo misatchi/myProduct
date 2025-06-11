@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block title %}診断結果{% endblock %}
+{% block content %}
+<h2>あなたの骨格タイプ：{{ result.predicted_type | capitalize }}</h2>
+
+<!-- 骨格タイプに応じた画像を表示 -->
+<div class="type-image">
+    <img src="{{ url_for('static', filename='images/' + result.predicted_type + '.jpg') }}" alt="{{ result.predicted_type }}タイプ">
+</div>
+
+<!-- 説明文 -->
+<p>{{ result.type_reference_ex }}</p>
+
+<h3>おすすめコーディネート</h3>
+<ul>
+    {% if result.type_reference_urls %}
+    {% for link in result.type_reference_urls %}
+        <li class="mb-3">
+            <a href="{{ link.url }}" target="_blank" class="text-decoration-none">
+        <div class="d-flex align-items-center">
+                                                                        <i class="bi bi-link-45deg me-2"></i>
+        <div>
+        <div class="fw-bold">{{ link.description }}</div>
+        <small class="text-muted">{{ link.url }}</small>
+        </div>
+   </div>
+        </a>
+        </li>
+    {% endfor %}
+    {% else %}
+        <li>参考リンクはありません。</li>
+    {% endif %}
+</ul>
+
+{% endblock %}

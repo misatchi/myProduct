@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block content %}
+<main>
+    <h1 class="content_title">画像で骨格診断</h1>
+
+    <div class="content">
+
+        <!-- 画像を挿入 -->
+        <div class="image_section">
+            <img src="{{ url_for('static', filename='images/3taipu.jpg') }}" alt="骨格診断イメージ" class="sample_image">
+        </div>
+
+        <!-- 骨格診断とは -->
+        <h2 class="subtitle">骨格診断とは？</h2>
+        <p>
+            骨格診断とは、生まれ持った身体のラインや質感から「ストレート」「ウェーブ」「ナチュラル」といった骨格タイプを分類し、
+            それぞれに似合うファッションを提案する診断方法です。
+        </p>
+
+        <!-- スタートボタン -->
+        <div class="click_btn">
+            <a href="/upload" class="btn">診断スタート</a>
+
+        </div>
+
+    </div>
+</main>
+
+{% endblock %}
