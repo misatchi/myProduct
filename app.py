@@ -34,9 +34,16 @@ recommendation_system = RecommendationSystem(
 # モデルロード
 try:
     classifier.load_model("models/skeleton_classifier.joblib")
-except Exception:
-    app.logger.warning("モデル読み込みに失敗しました: models/skeleton_classifier.joblib が見つからないか読み込みに失敗しました。")
+    print("モデルが正常に読み込まれました")
+except Exception as e:
+    app.logger.warning(f"モデル読み込みに失敗しました: {str(e)}")
+    print(f"モデル読み込みエラー: {str(e)}")
 
+# アプリケーション起動時の確認
+print(f"アプリケーションが起動しました")
+print(f"UPLOAD_FOLDER: {UPLOAD_FOLDER}")
+print(f"FEATURES_DIR: {FEATURES_DIR}")
+print(f"AUGMENTED_IMAGES_DIR: {AUGMENTED_IMAGES_DIR}")
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -179,4 +186,5 @@ def show_results():
     return render_template('results.html', result=result)
 
 if __name__ == '__main__':
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)

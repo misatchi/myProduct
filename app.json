@@ -1,0 +1,23 @@
+{
+  "name": "MyFrame Skeleton Analysis",
+  "description": "A Flask application for skeleton type analysis and fashion recommendations",
+  "repository": "https://github.com/yourusername/mediapipe",
+  "keywords": ["python", "flask", "mediapipe", "machine-learning"],
+  "env": {
+    "SECRET_KEY": {
+      "description": "A secret key for the Flask application",
+      "generator": "secret"
+    }
+  },
+  "buildpacks": [
+    {
+      "url": "heroku/python"
+    }
+  ],
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "basic"
+    }
+  }
+} 
