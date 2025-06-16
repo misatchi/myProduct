@@ -1,7 +1,7 @@
 {
   "name": "MyFrame Skeleton Analysis",
   "description": "A Flask application for skeleton type analysis and fashion recommendations",
-  "repository": "https://github.com/yourusername/mediapipe",
+  "repository": "https://github.com/yamam/mediapipe",
   "keywords": ["python", "flask", "mediapipe", "machine-learning"],
   "env": {
     "SECRET_KEY": {

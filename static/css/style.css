@@ -104,11 +104,14 @@ main {
   color: white;
 }
 
+<<<<<<< HEAD
 .sample_image{
   width: 60%;
   height: 60%;
 }
 
+=======
+>>>>>>> 71a0313 (second commit)
 /* アップロードページ全体のスタイル */
 .upload-section {
   background-color: #faf3e6; /* 優しいベージュ背景 */
@@ -185,9 +188,15 @@ footer {
   width: 100%; /* 幅いっぱいを指定 */
   height: 50px; /* 高さを指定 */
   display: inline-block;
+<<<<<<< HEAD
   background:  #a58c77; /* 背景色を指定 */
   text-align: center;
   position: fixed;
+=======
+  background: rgba(115, 210, 230); /* 背景色を指定 */
+  text-align: center;
+  position: absolute;
+>>>>>>> 71a0313 (second commit)
   bottom: 0;
 }
 

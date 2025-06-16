@@ -1,15 +1,19 @@
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for, flash
-import os, traceback
+import os
+import traceback
 from werkzeug.utils import secure_filename
 from feature_extractor import DetailedFeatureExtractor
 from similarity_calculator import SimilarityCalculator, RecommendationSystem
 from skeleton_classifier import SkeletonClassifier
 import cv2  # opencv-python-headless推奨
 import numpy as np
+from pathlib import Path
+import json
+from typing import Dict, List, Tuple
+from sklearn.metrics.pairwise import cosine_similarity
 
 app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'replace_me_in_env')
-# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # 設定
 UPLOAD_FOLDER = 'static/uploads'
@@ -17,6 +21,10 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 FEATURES_DIR = 'data/features'
 AUGMENTED_IMAGES_DIR = 'data/augmented'
 
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max-limit
+
+# 必要なディレクトリの作成
 for d in [UPLOAD_FOLDER, FEATURES_DIR, AUGMENTED_IMAGES_DIR]:
     os.makedirs(d, exist_ok=True)
 
@@ -192,4 +200,4 @@ def show_results():
     return render_template('results.html', result=result)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
