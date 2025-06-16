@@ -1,3 +1,19 @@
+import os
+import gdown  # 追加: Google Driveからダウンロードするため
+
+MODEL_PATH = "models/skeleton_classifier.joblib"
+GOOGLE_DRIVE_FILE_ID = "1wNMxquXInsKyY0TTZRg8DclFjiQZgbDa"  # 例: "1aBcD...xyz"
+
+def download_model_if_needed():
+    if not os.path.exists(MODEL_PATH):
+        os.makedirs(os.path.dirname(MODEL_PATH), exist_ok=True)
+        url = f"https://drive.google.com/uc?id={GOOGLE_DRIVE_FILE_ID}"
+        print("Downloading model from Google Drive...")
+        gdown.download(url, MODEL_PATH, quiet=False)
+        print("Download complete.")
+
+download_model_if_needed()
+
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for, flash
 import os, traceback
 from werkzeug.utils import secure_filename
