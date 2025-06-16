@@ -24,7 +24,7 @@ AUGMENTED_IMAGES_DIR = 'data/augmented'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max-limit
 
-# 必要なディレクトリの作成
+# 必要なディレクトリの作成（Heroku環境では存在しない場合がある）
 for d in [UPLOAD_FOLDER, FEATURES_DIR, AUGMENTED_IMAGES_DIR]:
     os.makedirs(d, exist_ok=True)
 
@@ -45,12 +45,14 @@ except Exception as e:
     print(f"コンポーネント初期化エラー: {str(e)}")
     app.logger.error(f"コンポーネント初期化エラー: {str(e)}")
 
-# モデルロード
+# モデルロード（Heroku環境ではモデルファイルが存在しない場合がある）
+model_loaded = False
 try:
     classifier.load_model("models/skeleton_classifier.joblib")
+    model_loaded = True
     print("モデルが正常に読み込まれました")
 except FileNotFoundError:
-    print("警告: モデルファイルが見つかりません。モデル学習を実行してください。")
+    print("警告: モデルファイルが見つかりません。Heroku環境では正常な動作です。")
     app.logger.warning(f"モデル読み込みに失敗しました: モデルファイルが見つかりません")
 except Exception as e:
     app.logger.warning(f"モデル読み込みに失敗しました: {str(e)}")
@@ -61,6 +63,7 @@ print(f"アプリケーションが起動しました")
 print(f"UPLOAD_FOLDER: {UPLOAD_FOLDER}")
 print(f"FEATURES_DIR: {FEATURES_DIR}")
 print(f"AUGMENTED_IMAGES_DIR: {AUGMENTED_IMAGES_DIR}")
+print(f"モデル読み込み状態: {model_loaded}")
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -89,6 +92,10 @@ def analyze():
             file.save(filepath)
             
             try:
+                # モデルが読み込まれていない場合の処理
+                if not model_loaded:
+                    return jsonify({'error': 'モデルが読み込まれていません。管理者にお問い合わせください。'}), 500
+                
                 # 特徴量の抽出
                 features = feature_extractor.extract_features(filepath)
                 

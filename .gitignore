@@ -42,8 +42,12 @@ Thumbs.db
 # Logs
 *.log
 
-# Local data
+# Local data - Exclude from Heroku deployment
+data/
 data/uploads/
+data/augmented/
+data/features/
+data/original/
 static/uploads/
 *.joblib
 
@@ -55,10 +59,6 @@ static/uploads/
 models/
 models/*.joblib
 models/*.pkl
-
-# Media files
-data/augmented/
-data/features/
 
 # PyInstaller
 *.manifest
