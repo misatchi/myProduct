@@ -7,8 +7,9 @@ from skeleton_classifier import SkeletonClassifier
 import cv2  # opencv-python-headless推奨
 import numpy as np
 
-app = Flask(__name__, static_folder='static', template_folder='templates')
+app = Flask(__name__)
 app.secret_key = os.environ.get('SECRET_KEY', 'replace_me_in_env')
+# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 # 設定
 UPLOAD_FOLDER = 'static/uploads'
@@ -24,12 +25,17 @@ for skeleton in ["straight", "wave", "natural"]:
     os.makedirs(os.path.join(AUGMENTED_IMAGES_DIR, skeleton), exist_ok=True)
 
 # 初期化
-feature_extractor = DetailedFeatureExtractor()
-classifier = SkeletonClassifier()
-recommendation_system = RecommendationSystem(
-    features_dir=FEATURES_DIR,
-    images_dir=AUGMENTED_IMAGES_DIR
-)
+try:
+    feature_extractor = DetailedFeatureExtractor()
+    classifier = SkeletonClassifier()
+    recommendation_system = RecommendationSystem(
+        features_dir=FEATURES_DIR,
+        images_dir=AUGMENTED_IMAGES_DIR
+    )
+    print("コンポーネントの初期化が完了しました")
+except Exception as e:
+    print(f"コンポーネント初期化エラー: {str(e)}")
+    app.logger.error(f"コンポーネント初期化エラー: {str(e)}")
 
 # モデルロード
 try:
@@ -186,5 +192,4 @@ def show_results():
     return render_template('results.html', result=result)
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host="0.0.0.0", port=port, debug=False)
+    app.run(debug=True)
