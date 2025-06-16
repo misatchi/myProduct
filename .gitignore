@@ -25,6 +25,9 @@ MANIFEST
 venv/
 env/
 ENV/
+.venv
+env.bak/
+venv.bak/
 
 # IDE
 .vscode/
@@ -46,7 +49,88 @@ static/uploads/
 
 # Temporary files
 *.tmp
-*.temp 
+*.temp
 
+# Model files
 models/
-*.joblib
+models/*.joblib
+models/*.pkl
+
+# Media files
+data/augmented/
+data/features/
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# Django stuff:
+local_settings.py
+db.sqlite3
+
+# Flask stuff:
+instance/
+.webassets-cache
+
+# Scrapy stuff:
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# celery beat schedule file
+celerybeat-schedule
+
+# SageMath parsed files
+*.sage.py
+
+# Spyder project settings
+.spyderproject
+.spyproject
+
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Heroku
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local

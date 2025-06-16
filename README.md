@@ -9,10 +9,12 @@
 - 複数の機械学習モデル（Random Forest, SVM, XGBoost）による分類
 - クロスバリデーションによるモデル評価
 - モデルの保存と読み込み
+- Flask Webアプリケーション
+- Herokuデプロイ対応
 
 ## 必要条件
 
-- Python 3.8以上
+- Python 3.10以上
 - 必要なパッケージは `requirements.txt` に記載
 
 ## インストール
@@ -26,6 +28,76 @@ cd [repository-name]
 2. 必要なパッケージをインストール
 ```bash
 pip install -r requirements.txt
+```
+
+## ローカルでの実行
+
+```bash
+python app.py
+```
+
+ブラウザで `http://localhost:5000` にアクセスしてください。
+
+## Herokuデプロイ
+
+### 1. Heroku CLIのインストール
+
+[Heroku CLI](https://devcenter.heroku.com/articles/heroku-cli)をインストールしてください。
+
+### 2. Herokuアプリの作成
+
+```bash
+# Herokuにログイン
+heroku login
+
+# 新しいアプリを作成
+heroku create your-app-name
+
+# または既存のアプリを使用
+heroku git:remote -a your-app-name
+```
+
+### 3. 環境変数の設定
+
+```bash
+# シークレットキーを設定
+heroku config:set SECRET_KEY=your-secret-key-here
+```
+
+### 4. デプロイ
+
+```bash
+# 変更をコミット
+git add .
+git commit -m "Deploy to Heroku"
+
+# Herokuにプッシュ
+git push heroku main
+```
+
+### 5. アプリの起動
+
+```bash
+heroku open
+```
+
+### トラブルシューティング
+
+デプロイでエラーが発生した場合：
+
+1. ログを確認
+```bash
+heroku logs --tail
+```
+
+2. アプリの状態を確認
+```bash
+heroku ps
+```
+
+3. 必要に応じてアプリを再起動
+```bash
+heroku restart
 ```
 
 ## 使用方法
@@ -96,6 +168,7 @@ print(f"判別結果: {result}")
 - 画像は正面を向いた全身の写真を使用してください
 - 骨格が正しく検出できない場合は、画像の品質や姿勢を確認してください
 - データ拡張により生成された画像は、元の画像と同じ骨格タイプとして扱われます
+- Herokuデプロイ時は、モデルファイルが大きい場合はGit LFSの使用を検討してください
 
 ## ライセンス
 

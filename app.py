@@ -1,31 +1,19 @@
-import os
-import gdown  # 追加: Google Driveからダウンロードするため
-
-MODEL_PATH = "models/skeleton_classifier.joblib"
-GOOGLE_DRIVE_FILE_ID = "1wNMxquXInsKyY0TTZRg8DclFjiQZgbDa"  # 例: "1aBcD...xyz"
-
-def download_model_if_needed():
-    if not os.path.exists(MODEL_PATH):
-        os.makedirs(os.path.dirname(MODEL_PATH), exist_ok=True)
-        url = f"https://drive.google.com/uc?id={GOOGLE_DRIVE_FILE_ID}"
-        print("Downloading model from Google Drive...")
-        gdown.download(url, MODEL_PATH, quiet=False)
-        print("Download complete.")
-
-download_model_if_needed()
-
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for, flash
-import os, traceback
+import os
+import traceback
 from werkzeug.utils import secure_filename
 from feature_extractor import DetailedFeatureExtractor
 from similarity_calculator import SimilarityCalculator, RecommendationSystem
 from skeleton_classifier import SkeletonClassifier
 import cv2  # opencv-python-headless推奨
 import numpy as np
+from pathlib import Path
+import json
+from typing import Dict, List, Tuple
+from sklearn.metrics.pairwise import cosine_similarity
 
 app = Flask(__name__)
-app.secret_key = os.environ.get('SECRET_KEY', 'replace_me_in_env')
-# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.secret_key = os.environ.get('SECRET_KEY', 'your_super_secret_key_replace_me')
 
 # 設定
 UPLOAD_FOLDER = 'static/uploads'
@@ -33,6 +21,10 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 FEATURES_DIR = 'data/features'
 AUGMENTED_IMAGES_DIR = 'data/augmented'
 
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max-limit
+
+# 必要なディレクトリの作成
 for d in [UPLOAD_FOLDER, FEATURES_DIR, AUGMENTED_IMAGES_DIR]:
     os.makedirs(d, exist_ok=True)
 
@@ -57,6 +49,9 @@ except Exception as e:
 try:
     classifier.load_model("models/skeleton_classifier.joblib")
     print("モデルが正常に読み込まれました")
+except FileNotFoundError:
+    print("警告: モデルファイルが見つかりません。モデル学習を実行してください。")
+    app.logger.warning(f"モデル読み込みに失敗しました: モデルファイルが見つかりません")
 except Exception as e:
     app.logger.warning(f"モデル読み込みに失敗しました: {str(e)}")
     print(f"モデル読み込みエラー: {str(e)}")
@@ -208,4 +203,4 @@ def show_results():
     return render_template('results.html', result=result)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)), debug=False) 
