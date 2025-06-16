@@ -47,3 +47,6 @@ static/uploads/
 # Temporary files
 *.tmp
 *.temp 
+
+models/
+*.joblib
